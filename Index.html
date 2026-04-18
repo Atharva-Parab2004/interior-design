@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interior AI</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: white;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: gold;
+}
+
+.upload-box {
+  border: 2px dashed #444;
+  padding: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-box:hover {
+  border-color: gold;
+}
+
+img {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: linear-gradient(gold, orange);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.loading {
+  margin-top: 20px;
+  display: none;
+}
+
+.card {
+  background: #1c1c1c;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 10px;
+  text-align: left;
+  border-left: 4px solid gold;
+}
+
+.card h3 {
+  color: gold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>✨ Interior AI Designer</h1>
+
+<div class="upload-box" onclick="document.getElementById('file').click()">
+  📸 Click to Upload Room Image
+</div>
+
+<input type="file" id="file" hidden onchange="previewImage(event)">
+
+<img id="preview" style="display:none;">
+
+<button onclick="generate()">Generate Designs</button>
+
+<div class="loading" id="loading">⏳ Designing your room...</div>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function previewImage(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function() {
+    const img = document.getElementById("preview");
+    img.src = reader.result;
+    img.style.display = "block";
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function generate() {
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("result").innerHTML = "";
+
+  setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+
+    document.getElementById("result").innerHTML = `
+      <div class="card">
+        <h3>Modern Minimal</h3>
+        <p>Clean white walls, simple furniture, minimal decor for peaceful environment.</p>
+      </div>
+
+      <div class="card">
+        <h3>Luxury Premium</h3>
+        <p>Gold accents, rich textures, premium furniture for elegant look.</p>
+      </div>
+
+      <div class="card">
+        <h3>Budget Smart</h3>
+        <p>Affordable decor, smart furniture arrangement, DIY ideas.</p>
+      </div>
+
+      <div class="card">
+        <h3>Space Optimized</h3>
+        <p>Multi-use furniture, better space usage, compact design.</p>
+      </div>
+    `;
+  }, 2000);
+}
+
+</script>
+
+</body>
+</html>
